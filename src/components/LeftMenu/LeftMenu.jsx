@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './LeftMenu.module.scss';
 const menu = [
   { text: 'Profile', path: '/' },
-  { text: 'Messages', path: '/messages' },
+  { text: 'Messages', path: '/dialogs' },
   { text: 'News', path: '/news' },
   { text: 'Music', path: '/music' },
   { text: 'Settings', path: '/settings' },
@@ -15,7 +16,7 @@ const LeftMenu = () => {
           <ul>
             {menu.map((obj) => (
               <li key={obj.path}>
-                <a href={obj.path}>{obj.text}</a>
+                <Link to={obj.path}>{obj.text}</Link>
               </li>
             ))}
           </ul>
