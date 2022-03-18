@@ -1,14 +1,6 @@
-.root {
+.leftMenu {
   background-color: rgb(88, 65, 7);
   nav {
     grid-area: n;
-  }
-  li {
-    a {
-      color: white;
-      &:active {
-        color: yellow;
-      }
-    }
   }
 }

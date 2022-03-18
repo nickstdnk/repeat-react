@@ -9,3 +9,36 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+ul li {
+  list-style: none;
+}
+
+:root {
+  --color-bg: white;
+  --color-active: yellow;
+}
+a {
+  color: var(--color-bg);
+  text-decoration: none;
+}
+
+.app-wrapper {
+  display: grid;
+  width: 100%;
+  grid-template-areas:
+    'h h'
+    'n c';
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  // grid-gap: 10px;
+}
+
+.app-wrapper-content {
+  grid-area: c;
+  background-color: yellowgreen;
+}
+
+.active-link {
+  color: var(--color-active);
+}

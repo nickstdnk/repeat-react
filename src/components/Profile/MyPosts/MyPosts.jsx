@@ -3,11 +3,15 @@ import styles from './MyPosts.module.scss';
 import Post from './Post/Post';
 const MyPosts = () => {
   return (
-    <div className={styles.root}>
-      My Posts
+    <div className={styles.myPosts}>
+      <h3>My Posts</h3>
       <div>
-        <textarea></textarea>
-        <button>Add post</button>
+        <div>
+          <textarea></textarea>
+        </div>
+        <div>
+          <button>Add post</button>
+        </div>
       </div>
       <div className={styles.posts}>
         <Post message="Hi, how are you?" countLikes={15} />

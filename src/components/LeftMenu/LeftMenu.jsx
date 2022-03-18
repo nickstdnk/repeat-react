@@ -1,6 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './LeftMenu.module.scss';
+
+const setActive = ({ isActive }) => (isActive ? 'active-link' : '');
+
 const menu = [
   { text: 'Profile', path: '/' },
   { text: 'Messages', path: '/dialogs' },
@@ -11,12 +14,14 @@ const menu = [
 const LeftMenu = () => {
   return (
     <>
-      <div className={styles.root}>
+      <div className={styles.leftMenu}>
         <nav>
           <ul>
             {menu.map((obj) => (
               <li key={obj.path}>
-                <Link to={obj.path}>{obj.text}</Link>
+                <NavLink to={obj.path} className={setActive}>
+                  {obj.text}
+                </NavLink>
               </li>
             ))}
           </ul>
