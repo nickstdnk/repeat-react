@@ -1,4 +1,4 @@
-import Content from './components/Content/Content';
+import Profile from './components/Profile/Profile';
 import Header from './components/Header/Header';
 import LeftMenu from './components/LeftMenu/LeftMenu';
 import './styles/App.scss';
@@ -8,7 +8,7 @@ function App() {
     <div className="app-wrapper">
       <Header />
       <LeftMenu />
-      <Content />
+      <Profile />
     </div>
   );
 }
