@@ -5,7 +5,7 @@ const Header = () => {
     <>
       <div className={styles.root}>
         <header>
-          <img src="https://freelogodesign.org/Content/img/logo-eex-7.png" />
+          <img src="https://freelogodesign.org/Content/img/logo-ex-7.png" />
         </header>
       </div>
     </>
