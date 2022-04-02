@@ -3,6 +3,10 @@
   grid-template-columns: 2fr 10fr;
 }
 
+.dialog {
+  padding: 2px;
+}
+
 .dialogsItems {
   padding: 10px;
   :active {
@@ -10,12 +14,32 @@
   }
 }
 
-.dialog {
-}
-
-.messages {
-  padding: 10px;
+.dialogItem {
+  display: flex;
+  padding: 7px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  img {
+    width: 24px;
+    margin-right: 5px;
+  }
 }
 
 .message {
+  padding: 2px;
+}
+
+.messagesItems {
+  padding: 10px;
+}
+
+.messageItem {
+  display: flex;
+  padding: 7px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  img {
+    width: 24px;
+    margin-right: 5px;
+  }
 }
