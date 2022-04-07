@@ -12,9 +12,10 @@ function App(props) {
     <>
       <Routes>
         <Route path="/" element={<Layout state={props.state.friendsPage}/>}>
-          <Route index element={<Profile state={props.state.profilePage} addPost={props.addPost}
-                                         updateNewPostText={props.updateNewPostText}/>}/>
-          <Route path="dialogs/*" element={<Dialogs state={props.state.dialogsPage}/>}/>
+          <Route index element={<Profile state={props.state.profilePage}
+                                         dispatch={props.dispatch}/>}/>
+          <Route path="dialogs/*" element={<Dialogs state={props.state.dialogsPage}
+                                                    dispatch={props.dispatch}/>}/>
           <Route path="news" element={<News/>}/>
           <Route path="music" element={<Music/>}/>
           <Route path="settings" element={<Settings/>}/>

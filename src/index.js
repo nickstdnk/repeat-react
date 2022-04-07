@@ -1,20 +1,22 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import './styles/index.scss'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
-import state, { addPost, subscribe, updateNewPostText } from './redux/state'
+import { createRoot } from 'react-dom/client'
+import store from './redux/state'
 
+import './styles/index.scss'
+
+
+const root = createRoot(document.getElementById('root'))
 let rerenderAllThree = (state) => {
-  ReactDOM.render(
+  root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App state={state} addPost={addPost} updateNewPostText={updateNewPostText}/>
+        <App state={state} dispatch={store.dispatch.bind(store)}/>
       </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root'),
+    </React.StrictMode>
   )
 }
 
-rerenderAllThree(state)
-subscribe(rerenderAllThree)
+rerenderAllThree(store.getState())
+store.subscribe(rerenderAllThree)

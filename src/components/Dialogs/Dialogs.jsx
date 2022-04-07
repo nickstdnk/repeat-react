@@ -2,15 +2,23 @@ import React, { useRef } from 'react'
 import styles from './Dialogs.module.scss'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
+import { AddMessageActionCreator, updateNewMessageTextActionCreator } from '../../redux/dialogsReducer'
 
 
 const Dialogs = (props) => {
   let newMessageElement = useRef(null)
 
-  // let addMessage = () => {
-  //   let text = newMessageElement.current.value;
-  //   alert(text);
-  // }
+  let addMessage = () => {
+    props.dispatch(AddMessageActionCreator())
+  }
+
+  let onMessageChange = () => {
+    let message = newMessageElement.current.value
+    let action = updateNewMessageTextActionCreator(message)
+    props.dispatch(action)
+  }
+
+
   return (
     <div className={styles.dialogs}>
       <div className={styles.dialogsItems}>
@@ -25,8 +33,8 @@ const Dialogs = (props) => {
       </div>
 
       <div>
-        <textarea ref={newMessageElement}></textarea>
-        <button onClick={() => alert(newMessageElement.current.value)}>Add</button>
+        <textarea value={props.newMessage} ref={newMessageElement} onChange={onMessageChange}></textarea>
+        <button onClick={addMessage}>Add</button>
       </div>
 
     </div>
