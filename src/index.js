@@ -2,7 +2,7 @@ import React from 'react'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
-import store from './redux/state'
+import store from './redux/reduxStore'
 
 import './styles/index.scss'
 
@@ -12,11 +12,15 @@ let rerenderAllThree = (state) => {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App state={state} dispatch={store.dispatch.bind(store)}/>
+        <App store={store}/>
       </BrowserRouter>
     </React.StrictMode>
   )
 }
 
 rerenderAllThree(store.getState())
-store.subscribe(rerenderAllThree)
+
+store.subscribe(() => {
+  let state = store.getState()
+  rerenderAllThree(state)
+})
