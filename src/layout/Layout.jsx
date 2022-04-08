@@ -3,13 +3,11 @@ import { Outlet } from 'react-router-dom'
 import Header from './Header/Header'
 import LeftMenu from './LeftMenu/LeftMenu'
 
-const Layout = (props) => {
+const Layout = () => {
   return (
     <div className="app-wrapper">
       <Header/>
-      <LeftMenu
-        store={props.store}
-      />
+      <LeftMenu/>
 
       <div className="app-wrapper-content">
         <Outlet/>

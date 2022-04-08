@@ -5,14 +5,17 @@ import { createRoot } from 'react-dom/client'
 import store from './redux/reduxStore'
 
 import './styles/index.scss'
+import StoreContext from './storeContext'
 
 
 const root = createRoot(document.getElementById('root'))
-let rerenderAllThree = (state) => {
+let rerenderAllThree = () => {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App store={store}/>
+        <StoreContext.Provider value={store}>
+          <App/>
+        </StoreContext.Provider>
       </BrowserRouter>
     </React.StrictMode>
   )

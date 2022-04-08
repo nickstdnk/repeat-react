@@ -4,11 +4,11 @@ import MyPostsContainer from './MyPosts/MyPostsContainer'
 
 import styles from './Profile.module.scss'
 
-const Profile = (props) => {
+const Profile = () => {
   return (
     <div className={styles.profile}>
       <ProfileInfo/>
-      <MyPostsContainer store={props.store}/>
+      <MyPostsContainer/>
     </div>
   )
 }

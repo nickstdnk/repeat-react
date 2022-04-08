@@ -7,17 +7,13 @@ import Layout from './layout/Layout'
 import { Routes, Route } from 'react-router-dom'
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 
-function App(props) {
+function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout
-          store={props.store}
-        />}>
-          <Route index element={<Profile store={props.store}/>}/>
-          <Route path="dialogs/*" element={<DialogsContainer
-            store={props.store}
-          />}/>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Profile/>}/>
+          <Route path="dialogs/*" element={<DialogsContainer/>}/>
           <Route path="news" element={<News/>}/>
           <Route path="music" element={<Music/>}/>
           <Route path="settings" element={<Settings/>}/>
