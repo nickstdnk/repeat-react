@@ -1,13 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from './Header/Header'
-import LeftMenu from './LeftMenu/LeftMenu'
+import SidebarContainer from './Sidebar/SidebarContainer'
 
 const Layout = () => {
   return (
     <div className="app-wrapper">
       <Header/>
-      <LeftMenu/>
+      <SidebarContainer/>
 
       <div className="app-wrapper-content">
         <Outlet/>

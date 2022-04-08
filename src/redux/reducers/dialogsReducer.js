@@ -61,17 +61,24 @@ const initialState = {
 
 export default function dialogsReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_MESSAGE:
-      state.messages.push({
+    case ADD_MESSAGE: {
+      let stateCopy = {...state}
+      stateCopy.messages = [...state.messages]
+      stateCopy.messages.push({
         id: 12,
         message: state.newMessage,
         icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Creative-Tail-People-superman.svg/1200px-Creative-Tail-People-superman.svg.png'
       })
-      state.newMessage = ''
-      return state
-    case UPDATE_NEW_MESSAGE_TEXT:
-      state.newMessage = action.newMessage
-      return state
+      stateCopy.newMessage = ''
+      return stateCopy
+    }
+
+    case UPDATE_NEW_MESSAGE_TEXT: {
+      let stateCopy = {...state}
+      stateCopy.newMessage = action.newMessage
+      return stateCopy
+    }
+
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import styles from '../../layout/LeftMenu/LeftMenu.module.scss'
+import styles from '../../layout/Sidebar/Sidebar.module.scss'
 
 const initialState = {
   menu: [
