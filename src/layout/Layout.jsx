@@ -8,8 +8,7 @@ const Layout = (props) => {
     <div className="app-wrapper">
       <Header/>
       <LeftMenu
-        // friends={props.state.friends}
-        // dispatch={props.dispatch}
+        store={props.store}
       />
 
       <div className="app-wrapper-content">
