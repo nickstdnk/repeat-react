@@ -10,10 +10,6 @@ const initialState = {
 }
 
 export default function profileReducer(state = initialState, action) {
-  // let stateCopy = {
-  //   ...state,
-  //   posts: [...state.posts]
-  // }
   switch (action.type) {
     case ADD_POST: {
       return {
