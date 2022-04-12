@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleFollow } from '../../redux/reducers/usersReducer'
+import { getUsers, toggleFollow } from '../../redux/reducers/usersReducer'
 import Users from './Users'
 
 
@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     toggleFollow: (userId) => {
       dispatch(toggleFollow(userId))
+    },
+    getUsers: (users) => {
+      dispatch(getUsers(users))
     }
   }
 }
