@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { getUsers, setCurrentPage, toggleFollow } from '../../redux/reducers/usersReducer'
+import { getUsers, setCurrentPage, setUsersTotalCount, toggleFollow } from '../../redux/reducers/usersReducer'
 import Users from './Users'
 
 
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setCurrentPage: (currentPage) => {
       dispatch(setCurrentPage(currentPage))
+    },
+    setTotalUsersCount: (totalCount) => {
+      dispatch(setUsersTotalCount(totalCount))
     }
   }
 }

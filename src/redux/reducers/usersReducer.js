@@ -1,6 +1,7 @@
 const TOGGLE_FOLLOWED = 'TOGGLE_FOLLOWED'
 const GET_USERS = 'GET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT'
 
 const initialState = {
   users: [],
@@ -35,6 +36,12 @@ export default function usersReducer(state = initialState, action) {
         currentPage: action.currentPage
       }
     }
+    case SET_USERS_TOTAL_COUNT: {
+      return {
+        ...state,
+        totalUsersCount: action.totalCount
+      }
+    }
     default:
       return state
   }
@@ -43,3 +50,4 @@ export default function usersReducer(state = initialState, action) {
 export const toggleFollow = (userId) => ({type: TOGGLE_FOLLOWED, userId})
 export const getUsers = (users) => ({type: GET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
+export const setUsersTotalCount = (totalCount) => ({type: SET_USERS_TOTAL_COUNT, totalCount})
