@@ -1,33 +1,12 @@
 const TOGGLE_FOLLOWED = 'TOGGLE_FOLLOWED'
 const GET_USERS = 'GET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
 const initialState = {
-  users: [
-    // {
-    //   id: 1,
-    //   status: 'Halo 1',
-    //   fullName: 'Pevets Sergey',
-    //   location: {country: 'Belarus', city: 'Minsk'},
-    //   userPhoto: 'https://st4.depositphotos.com/27867620/30392/v/1600/depositphotos_303925352-stock-illustration-user-web-icon-simple-design.jpg',
-    //   followed: true,
-    // },
-    // {
-    //   id: 2,
-    //   status: 'Halo 2',
-    //   fullName: 'Stadnik Nikolay',
-    //   location: {country: 'Belarus', city: 'Brest'},
-    //   userPhoto: 'https://st4.depositphotos.com/27867620/30392/v/1600/depositphotos_303925352-stock-illustration-user-web-icon-simple-design.jpg',
-    //   followed: false,
-    // },
-    // {
-    //   id: 3,
-    //   status: 'Halo 3',
-    //   fullName: 'Evkovich Natalia',
-    //   location: {country: 'Belarus', city: 'Minsk'},
-    //   userPhoto: 'https://st4.depositphotos.com/27867620/30392/v/1600/depositphotos_303925352-stock-illustration-user-web-icon-simple-design.jpg',
-    //   followed: false,
-    // }
-  ]
+  users: [],
+  pageSize: 5,
+  totalUsersCount: 21,
+  currentPage: 1
 }
 
 
@@ -50,6 +29,12 @@ export default function usersReducer(state = initialState, action) {
         users: action.users
       }
     }
+    case SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.currentPage
+      }
+    }
     default:
       return state
   }
@@ -57,3 +42,4 @@ export default function usersReducer(state = initialState, action) {
 
 export const toggleFollow = (userId) => ({type: TOGGLE_FOLLOWED, userId})
 export const getUsers = (users) => ({type: GET_USERS, users})
+export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})

@@ -1,11 +1,14 @@
 import { connect } from 'react-redux'
-import { getUsers, toggleFollow } from '../../redux/reducers/usersReducer'
+import { getUsers, setCurrentPage, toggleFollow } from '../../redux/reducers/usersReducer'
 import Users from './Users'
 
 
 const mapStateToProps = (state) => {
   return {
-    users: state.userPage.users
+    users: state.userPage.users,
+    pageSize: state.userPage.pageSize,
+    totalUsersCount: state.userPage.totalUsersCount,
+    currentPage: state.userPage.currentPage
   }
 }
 
@@ -16,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getUsers: (users) => {
       dispatch(getUsers(users))
+    },
+    setCurrentPage: (currentPage) => {
+      dispatch(setCurrentPage(currentPage))
     }
   }
 }

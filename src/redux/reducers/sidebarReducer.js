@@ -7,6 +7,7 @@ const initialState = {
     {text: 'News', path: '/news'},
     {text: 'Music', path: '/music'},
     {text: 'Settings', path: '/settings'},
+    {text: 'Users', path: '/users'},
     {text: 'Friends', path: '/friends', styles: styles.friends},
   ]
 }
