@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Users.module.scss'
+import Preloader from '../common/Preloader/Preloader'
 
 export const Users = (props) => {
   // debugger;
@@ -8,41 +9,43 @@ export const Users = (props) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
-  return (
-    <div>
+  return (<>
+      {props.isFetching ? <Preloader/> : null}
       <div>
-        {
-          pages.map(p => {
-            return <span key={p} className={props.currentPage === p ? styles.selectedPage : ''}
-                         onClick={() => props.onPageChanged(p)}>{p}</span>
-          })
-        }
-      </div>
-
-      {props.users.map(u =>
-        <div key={u.id}>
-          <div className="left">
-            <div><img className={styles.userPhoto}
-                      src={u.userPhoto != null
-                        ? u.userPhoto
-                        : 'https://vseretsepty.ru/wp-content/uploads/images/persona.png'}
-                      alt="logo"/>
-            </div>
-            <div>
-              <button onClick={() => {
-                props.toggleFollow(u.id)
-              }}>{u.followed ? 'Unfollow' : 'Follow'}</button>
-            </div>
-          </div>
-          <div className="right">
-            <div>{u.name}</div>
-            <div>{u.status}</div>
-            <div>{'u.location.country'}</div>
-            <div>{'u.location.city'}</div>
-          </div>
+        <div>
+          {
+            pages.map(p => {
+              return <span key={p} className={props.currentPage === p ? styles.selectedPage : ''}
+                           onClick={() => props.onPageChanged(p)}>{p}</span>
+            })
+          }
         </div>
-      )}
-    </div>
+
+        {props.users.map(u =>
+          <div key={u.id}>
+            <div className="left">
+              <div><img className={styles.userPhoto}
+                        src={u.userPhoto != null
+                          ? u.userPhoto
+                          : 'https://vseretsepty.ru/wp-content/uploads/images/persona.png'}
+                        alt="logo"/>
+              </div>
+              <div>
+                <button onClick={() => {
+                  props.toggleFollow(u.id)
+                }}>{u.followed ? 'Unfollow' : 'Follow'}</button>
+              </div>
+            </div>
+            <div className="right">
+              <div>{u.name}</div>
+              <div>{u.status}</div>
+              <div>{'u.location.country'}</div>
+              <div>{'u.location.city'}</div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   )
 }
 

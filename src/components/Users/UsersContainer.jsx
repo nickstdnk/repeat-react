@@ -2,12 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import Users from './Users'
-import { getUsers, setCurrentPage, setUsersTotalCount, toggleFollow } from '../../redux/reducers/usersReducer'
+import {
+  getUsers,
+  setCurrentPage,
+  setUsersTotalCount,
+  toggleFollow,
+  toggleIsFetching
+} from '../../redux/reducers/usersReducer'
 
 class UsersContainer extends React.Component {
   componentDidMount() {
+    this.props.toggleIsFetching(true)
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
       .then(response => {
+        this.props.toggleIsFetching(false)
         this.props.getUsers(response.data.items)
         this.props.setTotalUsersCount(response.data.totalCount)
       })
@@ -15,8 +23,10 @@ class UsersContainer extends React.Component {
 
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber)
+    this.props.toggleIsFetching(true)
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.pageSize}`)
       .then(response => {
+        this.props.toggleIsFetching(false)
         this.props.getUsers(response.data.items)
       })
   }
@@ -30,7 +40,7 @@ class UsersContainer extends React.Component {
              onPageChanged={this.onPageChanged}
              users={this.props.users}
              toggleFollow={this.toggleFollow}
-
+             isFetching={this.props.isFetching}
       />
     )
 
@@ -42,7 +52,8 @@ const mapStateToProps = (state) => {
     users: state.userPage.users,
     pageSize: state.userPage.pageSize,
     totalUsersCount: state.userPage.totalUsersCount,
-    currentPage: state.userPage.currentPage
+    currentPage: state.userPage.currentPage,
+    isFetching: state.userPage.isFetching,
   }
 }
 
@@ -59,6 +70,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setTotalUsersCount: (totalCount) => {
       dispatch(setUsersTotalCount(totalCount))
+    },
+    toggleIsFetching: (isFetching) => {
+      dispatch(toggleIsFetching(isFetching))
     }
   }
 }
