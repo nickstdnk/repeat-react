@@ -5,7 +5,7 @@ import Users from './Users'
 import {
   getUsers,
   setCurrentPage,
-  setUsersTotalCount,
+  setTotalUsersCount,
   toggleFollow,
   toggleIsFetching
 } from '../../redux/reducers/usersReducer'
@@ -57,24 +57,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleFollow: (userId) => {
-      dispatch(toggleFollow(userId))
-    },
-    getUsers: (users) => {
-      dispatch(getUsers(users))
-    },
-    setCurrentPage: (currentPage) => {
-      dispatch(setCurrentPage(currentPage))
-    },
-    setTotalUsersCount: (totalCount) => {
-      dispatch(setUsersTotalCount(totalCount))
-    },
-    toggleIsFetching: (isFetching) => {
-      dispatch(toggleIsFetching(isFetching))
-    }
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps,
+  {
+    toggleFollow,
+    getUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching
+  })(UsersContainer)
 

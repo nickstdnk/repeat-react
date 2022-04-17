@@ -1,7 +1,7 @@
 const TOGGLE_FOLLOWED = 'TOGGLE_FOLLOWED'
 const GET_USERS = 'GET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 const initialState = {
@@ -38,7 +38,7 @@ export default function usersReducer(state = initialState, action) {
         currentPage: action.currentPage
       }
     }
-    case SET_USERS_TOTAL_COUNT: {
+    case SET_TOTAL_USERS_COUNT: {
       return {
         ...state,
         totalUsersCount: action.totalCount
@@ -58,5 +58,5 @@ export default function usersReducer(state = initialState, action) {
 export const toggleFollow = (userId) => ({type: TOGGLE_FOLLOWED, userId})
 export const getUsers = (users) => ({type: GET_USERS, users})
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage})
-export const setUsersTotalCount = (totalCount) => ({type: SET_USERS_TOTAL_COUNT, totalCount})
+export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})

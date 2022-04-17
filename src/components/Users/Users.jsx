@@ -3,7 +3,6 @@ import styles from './Users.module.scss'
 import Preloader from '../common/Preloader/Preloader'
 
 export const Users = (props) => {
-  // debugger;
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
   let pages = []
   for (let i = 1; i <= pagesCount; i++) {
