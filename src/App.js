@@ -1,4 +1,3 @@
-import Profile from './components/Profile/Profile'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
@@ -7,13 +6,14 @@ import Layout from './layout/Layout'
 import { Routes, Route } from 'react-router-dom'
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 import UsersContainer from './components/Users/UsersContainer'
+import ProfileContainer from './components/Profile/ProfileContainer'
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout/>}>
-          <Route index element={<Profile/>}/>
+          <Route index path="profile/*" element={<ProfileContainer/>}/>
           <Route path="dialogs/*" element={<DialogsContainer/>}/>
           <Route path="news" element={<News/>}/>
           <Route path="music" element={<Music/>}/>

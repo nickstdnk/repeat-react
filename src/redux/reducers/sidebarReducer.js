@@ -2,7 +2,7 @@ import styles from '../../layout/Sidebar/Sidebar.module.scss'
 
 const initialState = {
   menu: [
-    {text: 'Profile', path: '/'},
+    {text: 'Profile', path: '/profile'},
     {text: 'Messages', path: '/dialogs'},
     {text: 'News', path: '/news'},
     {text: 'Music', path: '/music'},

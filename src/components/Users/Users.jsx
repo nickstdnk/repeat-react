@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Users.module.scss'
 import Preloader from '../common/Preloader/Preloader'
+import { NavLink } from 'react-router-dom'
 
 export const Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -23,11 +24,14 @@ export const Users = (props) => {
         {props.users.map(u =>
           <div key={u.id}>
             <div className="left">
-              <div><img className={styles.userPhoto}
-                        src={u.userPhoto != null
-                          ? u.userPhoto
-                          : 'https://vseretsepty.ru/wp-content/uploads/images/persona.png'}
-                        alt="logo"/>
+              <div>
+                <NavLink to={'/profile/' + 2}>
+                  <img className={styles.userPhoto}
+                       src={u.userPhoto != null
+                         ? u.userPhoto
+                         : 'https://vseretsepty.ru/wp-content/uploads/images/persona.png'}
+                       alt="logo"/>
+                </NavLink>
               </div>
               <div>
                 <button onClick={() => {
