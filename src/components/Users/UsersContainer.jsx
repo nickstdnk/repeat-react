@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import Users from './Users'
 import {
@@ -9,35 +8,34 @@ import {
   toggleFollow,
   toggleIsFetching
 } from '../../redux/reducers/usersReducer'
+import { usersAPI } from '../../api/api'
 
 const UsersContainer = (props) => {
 
   useEffect(() => {
     props.toggleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`, {withCredentials: true})
-      .then(response => {
+    usersAPI.getUsers(props.currentPage, props.pageSize)
+      .then(data => {
         props.toggleIsFetching(false)
-        props.getUsers(response.data.items)
-        props.setTotalUsersCount(response.data.totalCount)
+        props.getUsers(data.items)
+        props.setTotalUsersCount(data.totalCount)
       })
   }, [])
 
   const onPageChanged = (pageNumber) => {
     props.setCurrentPage(pageNumber)
     props.toggleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`, {withCredentials: true})
-      .then(response => {
+    usersAPI.getUsers(pageNumber, props.pageSize)
+      .then(data => {
         props.toggleIsFetching(false)
-        props.getUsers(response.data.items)
+        props.getUsers(data.items)
       })
   }
+
   const follow = (userId) => {
-    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-      withCredentials: true,
-      headers: {'API-KEY': '27c1fa5b-4b93-43f9-9a7e-0fd1a95e83db'}
-    })
-      .then(response => {
-        if (response.data.resultCode === 0) {
+    usersAPI.follow(userId)
+      .then(data => {
+        if (data.resultCode === 0) {
           props.toggleFollow(userId)
         } else {
           throw Error('Ошибка подписки, что то пошло не так...')
@@ -46,12 +44,9 @@ const UsersContainer = (props) => {
   }
 
   const unfollow = (userId) => {
-    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-      withCredentials: true,
-      headers: {'API-KEY': '27c1fa5b-4b93-43f9-9a7e-0fd1a95e83db'}
-    })
-      .then(response => {
-        if (response.data.resultCode === 0) {
+    usersAPI.unfollow(userId)
+      .then(data => {
+        if (data.resultCode === 0) {
           props.toggleFollow(userId)
         } else {
           throw Error('Ошибка отписки, что то пошло не так...')
