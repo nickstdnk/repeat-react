@@ -25,10 +25,10 @@ export const Users = (props) => {
           <div key={u.id}>
             <div className="left">
               <div>
-                <NavLink to={'/profile/' + 2}>
+                <NavLink to={'/profile/' + u.id}>
                   <img className={styles.userPhoto}
-                       src={u.userPhoto != null
-                         ? u.userPhoto
+                       src={u.photos.small != null
+                         ? u.photos.small
                          : 'https://vseretsepty.ru/wp-content/uploads/images/persona.png'}
                        alt="logo"/>
                 </NavLink>
