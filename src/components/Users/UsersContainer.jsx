@@ -14,7 +14,7 @@ const UsersContainer = (props) => {
 
   useEffect(() => {
     props.toggleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`, {withCredentials: true})
       .then(response => {
         props.toggleIsFetching(false)
         props.getUsers(response.data.items)
@@ -25,11 +25,39 @@ const UsersContainer = (props) => {
   const onPageChanged = (pageNumber) => {
     props.setCurrentPage(pageNumber)
     props.toggleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`, {withCredentials: true})
       .then(response => {
         props.toggleIsFetching(false)
         props.getUsers(response.data.items)
       })
+  }
+  const follow = (userId) => {
+    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
+      withCredentials: true,
+      headers: {'API-KEY': '27c1fa5b-4b93-43f9-9a7e-0fd1a95e83db'}
+    })
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          props.toggleFollow(userId)
+        } else {
+          throw Error('Ошибка подписки, что то пошло не так...')
+        }
+      })
+  }
+
+  const unfollow = (userId) => {
+    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
+      withCredentials: true,
+      headers: {'API-KEY': '27c1fa5b-4b93-43f9-9a7e-0fd1a95e83db'}
+    })
+      .then(response => {
+        if (response.data.resultCode === 0) {
+          props.toggleFollow(userId)
+        } else {
+          throw Error('Ошибка отписки, что то пошло не так...')
+        }
+      })
+
   }
 
   return (
@@ -38,7 +66,8 @@ const UsersContainer = (props) => {
            currentPage={props.currentPage}
            onPageChanged={onPageChanged}
            users={props.users}
-           toggleFollow={props.toggleFollow}
+           follow={follow}
+           unfollow={unfollow}
            isFetching={props.isFetching}
     />
   )

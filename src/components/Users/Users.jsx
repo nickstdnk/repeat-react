@@ -35,7 +35,7 @@ export const Users = (props) => {
               </div>
               <div>
                 <button onClick={() => {
-                  props.toggleFollow(u.id)
+                  u.followed ? props.unfollow(u.id) : props.follow(u.id)
                 }}>{u.followed ? 'Unfollow' : 'Follow'}</button>
               </div>
             </div>
