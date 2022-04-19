@@ -1,6 +1,6 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
 import Users from './Users'
 import {
   getUsers,
@@ -10,41 +10,38 @@ import {
   toggleIsFetching
 } from '../../redux/reducers/usersReducer'
 
-class UsersContainer extends React.Component {
-  componentDidMount() {
-    this.props.toggleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+const UsersContainer = (props) => {
+
+  useEffect(() => {
+    props.toggleIsFetching(true)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
       .then(response => {
-        this.props.toggleIsFetching(false)
-        this.props.getUsers(response.data.items)
-        this.props.setTotalUsersCount(response.data.totalCount)
+        props.toggleIsFetching(false)
+        props.getUsers(response.data.items)
+        props.setTotalUsersCount(response.data.totalCount)
+      })
+  }, [])
+
+  const onPageChanged = (pageNumber) => {
+    props.setCurrentPage(pageNumber)
+    props.toggleIsFetching(true)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`)
+      .then(response => {
+        props.toggleIsFetching(false)
+        props.getUsers(response.data.items)
       })
   }
 
-  onPageChanged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber)
-    this.props.toggleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.pageSize}`)
-      .then(response => {
-        this.props.toggleIsFetching(false)
-        this.props.getUsers(response.data.items)
-      })
-  }
-
-
-  render() {
-    return (
-      <Users totalUsersCount={this.props.totalUsersCount}
-             pageSize={this.props.pageSize}
-             currentPage={this.props.currentPage}
-             onPageChanged={this.onPageChanged}
-             users={this.props.users}
-             toggleFollow={this.props.toggleFollow}
-             isFetching={this.props.isFetching}
-      />
-    )
-
-  }
+  return (
+    <Users totalUsersCount={props.totalUsersCount}
+           pageSize={props.pageSize}
+           currentPage={props.currentPage}
+           onPageChanged={onPageChanged}
+           users={props.users}
+           toggleFollow={props.toggleFollow}
+           isFetching={props.isFetching}
+    />
+  )
 }
 
 const mapStateToProps = (state) => {
