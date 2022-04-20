@@ -3,7 +3,7 @@ import axios from 'axios'
 const instance = axios.create({
   withCredentials: true,
   baseURL: process.env.REACT_APP_API_URL,
-  headers: {'API-KEY': `${process.env.REACT_APP_API_KEY}`}
+  headers: {'API-KEY': `${process.env.REACT_APP_API_KEY}`},
 })
 
 export const usersAPI = {
@@ -24,6 +24,15 @@ export const usersAPI = {
       .then(response => {
         return response.data
       })
-  }
+  },
+}
+
+export const headerAPI = {
+  getAuthUserData() {
+    return instance.get(`auth/me`)
+      .then(response => {
+        return response.data
+      })
+  },
 }
 

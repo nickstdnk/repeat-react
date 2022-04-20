@@ -6,7 +6,7 @@ import {
   setCurrentPage,
   setTotalUsersCount,
   toggleFollow,
-  toggleIsFetching
+  toggleIsFetching,
 } from '../../redux/reducers/usersReducer'
 import { usersAPI } from '../../api/api'
 
@@ -31,7 +31,7 @@ const UsersContainer = (props) => {
         props.getUsers(data.items)
       })
   }
-
+  
   const follow = (userId) => {
     usersAPI.follow(userId)
       .then(data => {
@@ -84,6 +84,6 @@ export default connect(mapStateToProps,
     getUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching
+    toggleIsFetching,
   })(UsersContainer)
 
