@@ -5,7 +5,7 @@ import {
   getUsers,
   setCurrentPage,
   setTotalUsersCount,
-  toggleFollow,
+  toggleFollow, toggleFollowingProgress,
   toggleIsFetching,
 } from '../../redux/reducers/usersReducer'
 import { usersAPI } from '../../api/api'
@@ -31,12 +31,14 @@ const UsersContainer = (props) => {
         props.getUsers(data.items)
       })
   }
-  
+
   const follow = (userId) => {
+    props.toggleFollowingProgress(true, userId)
     usersAPI.follow(userId)
       .then(data => {
         if (data.resultCode === 0) {
           props.toggleFollow(userId)
+          props.toggleFollowingProgress(false, userId)
         } else {
           throw Error('Ошибка подписки, что то пошло не так...')
         }
@@ -44,10 +46,12 @@ const UsersContainer = (props) => {
   }
 
   const unfollow = (userId) => {
+    props.toggleFollowingProgress(true, userId)
     usersAPI.unfollow(userId)
       .then(data => {
         if (data.resultCode === 0) {
           props.toggleFollow(userId)
+          props.toggleFollowingProgress(false, userId)
         } else {
           throw Error('Ошибка отписки, что то пошло не так...')
         }
@@ -64,6 +68,7 @@ const UsersContainer = (props) => {
            follow={follow}
            unfollow={unfollow}
            isFetching={props.isFetching}
+           followingInProgress={props.followingInProgress}
     />
   )
 }
@@ -75,6 +80,7 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.userPage.totalUsersCount,
     currentPage: state.userPage.currentPage,
     isFetching: state.userPage.isFetching,
+    followingInProgress: state.userPage.followingInProgress,
   }
 }
 
@@ -85,5 +91,6 @@ export default connect(mapStateToProps,
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetching,
+    toggleFollowingProgress,
   })(UsersContainer)
 

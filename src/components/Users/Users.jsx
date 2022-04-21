@@ -34,7 +34,7 @@ export const Users = (props) => {
                 </NavLink>
               </div>
               <div>
-                <button onClick={() => {
+                <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
                   u.followed ? props.unfollow(u.id) : props.follow(u.id)
                 }}>{u.followed ? 'Unfollow' : 'Follow'}</button>
               </div>
@@ -45,7 +45,7 @@ export const Users = (props) => {
               <div>{'u.location.country'}</div>
               <div>{'u.location.city'}</div>
             </div>
-          </div>
+          </div>,
         )}
       </div>
     </>
