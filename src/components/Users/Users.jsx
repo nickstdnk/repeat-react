@@ -1,7 +1,9 @@
 import React from 'react'
-import styles from './Users.module.scss'
-import Preloader from '../common/Preloader/Preloader'
 import { NavLink } from 'react-router-dom'
+import Preloader from '../common/Preloader/Preloader'
+
+import avatar from '../../assets/img/avatar.png'
+import styles from './Users.module.scss'
 
 export const Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -29,7 +31,7 @@ export const Users = (props) => {
                   <img className={styles.userPhoto}
                        src={u.photos.small != null
                          ? u.photos.small
-                         : 'https://vseretsepty.ru/wp-content/uploads/images/persona.png'}
+                         : avatar}
                        alt="logo"/>
                 </NavLink>
               </div>
