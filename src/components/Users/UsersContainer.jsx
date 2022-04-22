@@ -7,7 +7,7 @@ import {
   setTotalUsersCount,
   toggleFollow, toggleFollowingProgress,
   toggleIsFetching,
-} from '../../redux/reducers/usersReducer'
+} from '../../redux/actions/users'
 import { usersAPI } from '../../api/api'
 
 const UsersContainer = (props) => {
