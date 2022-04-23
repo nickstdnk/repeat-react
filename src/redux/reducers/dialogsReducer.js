@@ -1,5 +1,5 @@
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+import { addMessage, updateNewMessageText } from '../actions/dialogs'
+import * as constants from '../constants/dialogs'
 
 const initialState = {
   dialogs: [
@@ -62,19 +62,19 @@ const initialState = {
 
 export default function dialogsReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_MESSAGE: {
+    case constants.ADD_MESSAGE: {
       return {
         ...state,
         newMessage: '',
         messages: [...state.messages, {
           id: 12,
           message: state.newMessage,
-          icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Creative-Tail-People-superman.svg/1200px-Creative-Tail-People-superman.svg.png'
-        }]
+          icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Creative-Tail-People-superman.svg/1200px-Creative-Tail-People-superman.svg.png',
+        }],
       }
     }
 
-    case UPDATE_NEW_MESSAGE_TEXT: {
+    case constants.UPDATE_NEW_MESSAGE_TEXT: {
       return {
         ...state,
         newMessage: action.newMessage,
@@ -85,11 +85,15 @@ export default function dialogsReducer(state = initialState, action) {
   }
 }
 
-export const AddMessageActionCreator = () => ({type: ADD_MESSAGE})
+export const getMessage = () => {
+  return dispatch => {
+    dispatch(addMessage())
+  }
+}
 
-
-export const updateNewMessageTextActionCreator = (message) => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  newMessage: message
-})
+export const getNewMessageText = (message) => {
+  return dispatch => {
+    dispatch(updateNewMessageText(message))
+  }
+}
 
