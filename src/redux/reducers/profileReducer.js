@@ -1,6 +1,6 @@
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const SET_USER_PROFILE = 'SET_USER_PROFILE'
+import { profileAPI } from '../../api/api'
+import { addPostActionCreator, setUserProfile, updateNewPostTextActionCreator } from '../actions/profile'
+import * as constants from '../constants/profile'
 
 const initialState = {
   posts: [
@@ -13,7 +13,7 @@ const initialState = {
 
 export default function profileReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_POST: {
+    case constants.ADD_POST: {
       return {
         ...state,
         newPostText: '',
@@ -21,19 +21,19 @@ export default function profileReducer(state = initialState, action) {
           id: 8,
           message: state.newPostText,
           countLikes: 0,
-        }]
+        }],
       }
     }
-    case UPDATE_NEW_POST_TEXT: {
+    case constants.UPDATE_NEW_POST_TEXT: {
       return {
         ...state,
-        newPostText: action.newText
+        newPostText: action.newText,
       }
     }
-    case SET_USER_PROFILE: {
+    case constants.SET_USER_PROFILE: {
       return {
         ...state,
-        profile: action.profile
+        profile: action.profile,
       }
     }
     default:
@@ -41,9 +41,23 @@ export default function profileReducer(state = initialState, action) {
   }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST})
-export const updateNewPostTextActionCreator = (text) => ({
-  type: UPDATE_NEW_POST_TEXT,
-  newText: text
-})
-export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
+export const getProfileUserData = (userId) => {
+  return dispatch => {
+    profileAPI.getProfileUserData(userId)
+      .then(data => {
+        dispatch(setUserProfile(data))
+      })
+  }
+}
+
+export const updateNewPostText = (text) => {
+  return dispatch => {
+    dispatch(updateNewPostTextActionCreator(text))
+  }
+}
+
+export const addPost = () => {
+  return dispatch => {
+    dispatch(addPostActionCreator())
+  }
+}
