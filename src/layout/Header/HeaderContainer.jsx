@@ -6,7 +6,7 @@ import Header from './Header'
 const HeaderContainer = (props) => {
   useEffect(() => {
     props.getAuthUserData()
-  })
+  }, [])
   return (
     <Header {...props}/>
   )
