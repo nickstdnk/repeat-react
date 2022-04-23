@@ -1,6 +1,5 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import Preloader from '../common/Preloader/Preloader'
 
 import avatar from '../../assets/img/avatar.png'
 import styles from './Users.module.scss'
@@ -11,8 +10,8 @@ export const Users = (props) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i)
   }
-  return (<>
-      {props.isFetching ? <Preloader/> : null}
+  return (
+    <>
       <div>
         <div>
           {
@@ -37,7 +36,7 @@ export const Users = (props) => {
               </div>
               <div>
                 <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                  u.followed ? props.unfollow(u.id) : props.follow(u.id)
+                  u.followed ? props.toggleFollowing(u.id, 0) : props.toggleFollowing(u.id, 1)
                 }}>{u.followed ? 'Unfollow' : 'Follow'}</button>
               </div>
             </div>

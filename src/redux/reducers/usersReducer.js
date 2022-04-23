@@ -1,3 +1,11 @@
+import { usersAPI } from '../../api/api'
+import {
+  setCurrentPage,
+  setTotalUsersCount,
+  setUsers, toggleFollow,
+  toggleFollowingProgress,
+  toggleIsFetching,
+} from '../actions/users'
 import * as constants from '../constants/users'
 
 const initialState = {
@@ -23,7 +31,7 @@ export default function usersReducer(state = initialState, action) {
         }),
       }
     }
-    case constants.GET_USERS: {
+    case constants.SET_USERS: {
       return {
         ...state,
         users: action.users,
@@ -57,5 +65,34 @@ export default function usersReducer(state = initialState, action) {
     }
     default:
       return state
+  }
+}
+
+export const getUsers = (page, pageSize) => {
+  return (dispatch) => {
+    dispatch(setCurrentPage(page))
+    dispatch(toggleIsFetching(true))
+
+    usersAPI.getUsers(page, pageSize)
+      .then(data => {
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
+      })
+  }
+}
+
+export const toggleFollowing = (userId, actionFollow) => {
+  let action = actionFollow ? usersAPI.follow(userId) : usersAPI.unfollow(userId)
+  return dispatch => {
+    dispatch(toggleFollowingProgress(true, userId))
+    action.then(data => {
+      if (data.resultCode === 0) {
+        dispatch(toggleFollow(userId))
+        dispatch(toggleFollowingProgress(false, userId))
+      } else {
+        throw Error('Ошибка подписки, что то пошло не так...')
+      }
+    })
   }
 }
