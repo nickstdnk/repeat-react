@@ -1,3 +1,4 @@
+import Auth from './components/Auth/Auth'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
@@ -21,6 +22,7 @@ function App() {
           <Route path="settings" element={<Settings/>}/>
           <Route path="friends/*" element={<Settings/>}/>
           <Route path="users/*" element={<UsersContainer/>}/>
+          <Route path="auth" element={<Auth/>}/>
         </Route>
       </Routes>
     </>
