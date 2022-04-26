@@ -1,5 +1,10 @@
 import { profileAPI } from '../../api/api'
-import { addPostActionCreator, setUserProfile, updateNewPostTextActionCreator } from '../actions/profile'
+import {
+  addPostActionCreator,
+  setStatus,
+  setUserProfile,
+  updateNewPostTextActionCreator,
+} from '../actions/profile'
 import * as constants from '../constants/profile'
 
 const initialState = {
@@ -9,6 +14,7 @@ const initialState = {
   ],
   newPostText: '',
   profile: null,
+  status: '',
 }
 
 export default function profileReducer(state = initialState, action) {
@@ -36,16 +42,42 @@ export default function profileReducer(state = initialState, action) {
         profile: action.profile,
       }
     }
+    case constants.SET_STATUS: {
+      return {
+        ...state,
+        status: action.status,
+      }
+    }
     default:
       return state
   }
 }
 
-export const getProfileUserData = (userId) => {
+export const getProfile = (userId) => {
   return dispatch => {
-    profileAPI.getProfileUserData(userId)
+    profileAPI.getProfile(userId)
       .then(data => {
         dispatch(setUserProfile(data))
+      })
+  }
+}
+
+export const getStatus = (userId) => {
+  return dispatch => {
+    profileAPI.getStatus(userId)
+      .then(data => {
+        dispatch(setStatus(data))
+      })
+  }
+}
+
+export const updateStatus = (status) => {
+  return dispatch => {
+    profileAPI.updateStatus(status)
+      .then(data => {
+        if (data.resultCode === 0) {
+          dispatch(setStatus(status))
+        }
       })
   }
 }

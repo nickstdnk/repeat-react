@@ -6,3 +6,4 @@ export const updateNewPostTextActionCreator = (text) => ({
   newText: text,
 })
 export const setUserProfile = (profile) => ({type: constants.SET_USER_PROFILE, profile})
+export const setStatus = (status) => ({type: constants.SET_STATUS, status})
