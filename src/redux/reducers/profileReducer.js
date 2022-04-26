@@ -1,4 +1,4 @@
-import { profileAPI } from '../../api/api'
+import { profileAPI } from '../../utils/api/api'
 import {
   addPostActionCreator,
   setStatus,

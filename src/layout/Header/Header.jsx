@@ -9,7 +9,9 @@ const Header = (props) => {
         <header style={{display: 'flex', justifyContent: 'space-between'}}>
           <img src="https://freelogodesign.org/Content/img/logo-ex-7.png" alt=""/>
           <div>
-            {props.isAuth ? props.login : <Link to="/login"/>}
+            {props.isAuth
+              ? <div>{props.login} - <button onClick={props.logout}>Logout</button></div>
+              : <Link to="auth">Login</Link>}
           </div>
         </header>
       </div>
