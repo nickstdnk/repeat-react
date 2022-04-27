@@ -8,7 +8,7 @@ import Profile from './Profile'
 
 const ProfileContainer = (props) => {
   let {userId} = useParams()
-  if (!userId) userId = 23514
+  if (!userId) userId = props.authUserId
 
   useEffect(() => {
     props.getProfile(userId)
@@ -24,6 +24,8 @@ let mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authUserId: state.authPage.id,
+    isAuth: state.authPage.isAuth,
   }
 }
 

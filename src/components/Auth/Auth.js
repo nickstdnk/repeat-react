@@ -11,26 +11,48 @@ const AuthForm = (props) => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: {errors},
   } = useForm({
+    mode: 'onChange',
     resolver: yupResolver(LoginFormSchema),
   })
   const onSubmit = (data) => {
-    props.login(data)
+    props.login(data, setError)
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <input placeholder={'Email'} defaultValue={'codeblog.io@gmail.com'} {...register('email')} />
-        <p>{errors.email?.message}</p>
+        {errors.email &&
+          <div style={{color: 'red', border: '2px solid red'}}>{errors.email?.message}</div>
+        }
       </div>
       <div>
         <input placeholder={'Password'} defaultValue={'qwerty227'} {...register('password')} />
-        <p>{errors.password?.message}</p>
+        {errors.password &&
+          <div style={{color: 'red', border: '2px solid red'}}>{errors.password?.message}</div>
+        }
       </div>
       <div>
         <input type={'checkbox'} {...register('rememberMe')} /> remember me
       </div>
+      {errors.common &&
+        <div style={{color: 'red', border: '2px solid red'}}>{errors.common?.message}</div>
+      }
+      {errors.captcha &&
+        <div style={{color: 'red', border: '2px solid red'}}>{errors.captcha?.message}</div>
+      }
+      {props.captcha &&
+        <div>
+          <div>
+            <img src={props.captcha.url} alt={'captcha'}/>
+          </div>
+          <div>
+            <input placeholder={'captcha'} {...register('captcha')} />
+          </div>
+        </div>
+      }
       <div>
         <button type={'submit'}>Отправить</button>
       </div>
@@ -54,7 +76,10 @@ const Auth = (props) => {
   )
 }
 
-const mapStateToProps = (state, {email, password}) => ({isAuth: state.authPage.isAuth, email, password})
+const mapStateToProps = (state) => ({
+  isAuth: state.authPage.isAuth,
+  captcha: state.authPage.captcha,
+})
 
 export default connect(mapStateToProps, {login})(Auth)
 

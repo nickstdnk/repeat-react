@@ -1,1 +1,2 @@
 export const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA'
+export const SET_CAPTCHA = 'SET_CAPTCHA'
