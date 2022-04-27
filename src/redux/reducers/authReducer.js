@@ -29,17 +29,16 @@ export default function authReducer(state = initialState, action) {
   }
 }
 
-export const getAuthUserData = () => {
-  return dispatch => {
-    authAPI.getAuthUserData()
-      .then(data => {
-        if (data.resultCode === 0) {
-          let {id, email, login} = data.data
-          dispatch(setAuthUserData(id, email, login, true))
-        }
-      })
-  }
+export const getAuthUserData = () => (dispatch) => {
+  return authAPI.getAuthUserData()
+    .then(data => {
+      if (data.resultCode === 0) {
+        let {id, email, login} = data.data
+        dispatch(setAuthUserData(id, email, login, true))
+      }
+    })
 }
+
 
 export const login = (data, setError) => {
   const {email, password, rememberMe, captcha} = data

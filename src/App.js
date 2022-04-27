@@ -1,4 +1,9 @@
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 import Auth from './components/Auth/Auth'
+import Preloader from './components/common/Preloader/Preloader'
+import WithAuthRedirect from './components/hoc/WithAuthRedirect'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
@@ -8,8 +13,17 @@ import { Routes, Route } from 'react-router-dom'
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 import UsersContainer from './components/Users/UsersContainer'
 import ProfileContainer from './components/Profile/ProfileContainer'
+import { initializeApp } from './redux/reducers/appReducer'
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    props.initializeApp()
+  }, [])
+
+  if (!props.initialize) {
+    return <Preloader/>
+  }
+
   return (
     <>
       <Routes>
@@ -29,4 +43,11 @@ function App() {
   )
 }
 
-export default App
+const mapStateToProps = (state) => ({
+  initialize: state.app.initialize,
+})
+
+export default compose(
+  connect(mapStateToProps, {initializeApp}),
+  WithAuthRedirect,
+)(App)
