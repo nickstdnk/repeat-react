@@ -2,25 +2,24 @@ import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { getProfile, getStatus, updateStatus } from '../../redux/reducers/profileReducer'
-
 import Profile from './Profile'
+
+import { getProfile, getStatus, updateStatus } from '../../redux/reducers/profileReducer'
 
 const ProfileContainer = (props) => {
   let {userId} = useParams()
   const navigate = useNavigate()
 
   useEffect(() => {
-    props.getProfile(userId)
-    props.getStatus(userId)
-  }, [userId])
-
-  useEffect(() => {
     userId = props.authUserId
     if (!userId) {
-      navigate('/auth')
+      return () => {
+        navigate('/auth')
+      }
     }
-  }, [!userId])
+    props.getProfile(userId)
+    props.getStatus(userId)
+  }, [])
 
   return (
     <Profile {...props} />
