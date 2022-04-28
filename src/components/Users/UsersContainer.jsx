@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getUsers, toggleFollowing } from '../../redux/reducers/usersReducer'
-import Preloader from '../common/Preloader/Preloader'
+
 import Users from './Users'
+import Preloader from '../common/Preloader/Preloader'
+
 import {
   toggleFollowingProgress,
 } from '../../redux/actions/users'
+import { getUsers, toggleFollowing } from '../../redux/reducers/usersReducer'
+
+import * as selectors from '../../redux/selectors/users'
 
 const UsersContainer = (props) => {
 
@@ -39,12 +43,12 @@ const UsersContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.userPage.users,
-    pageSize: state.userPage.pageSize,
-    totalUsersCount: state.userPage.totalUsersCount,
-    currentPage: state.userPage.currentPage,
-    isFetching: state.userPage.isFetching,
-    followingInProgress: state.userPage.followingInProgress,
+    users: selectors.getUsers(state),
+    pageSize: selectors.getPageSize(state),
+    totalUsersCount: selectors.getTotalUsersCount(state),
+    currentPage: selectors.getCurrentPage(state),
+    isFetching: selectors.getIsFetching(state),
+    followingInProgress: selectors.getFollowingInProgress(state),
   }
 }
 
