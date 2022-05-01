@@ -1,4 +1,7 @@
-import { addMessage, updateNewMessageText } from '../actions/dialogs'
+import {
+  addMessage,
+  updateNewMessageText
+} from '../actions/dialogs'
 import * as constants from '../constants/dialogs'
 
 const initialState = {

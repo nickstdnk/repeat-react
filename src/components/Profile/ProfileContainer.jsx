@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import {
+  useNavigate,
+  useParams
+} from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import Profile from './Profile'
