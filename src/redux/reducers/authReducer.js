@@ -29,64 +29,56 @@ export default function authReducer(state = initialState, action) {
   }
 }
 
-export const getAuthUserData = () => (dispatch) => {
-  return authAPI.getAuthUserData()
-    .then(data => {
-      if (data.resultCode === 0) {
-        let {id, email, login} = data.data
-        dispatch(setAuthUserData(id, email, login, true))
-      }
-    })
+export const getAuthUserData = () => async (dispatch) => {
+  const data = await authAPI.getAuthUserData()
+  if (data.resultCode === 0) {
+    let {id, email, login} = data.data
+    dispatch(setAuthUserData(id, email, login, true))
+  }
 }
 
 
 export const login = (data, setError) => {
   const {email, password, rememberMe, captcha} = data
-  return (dispatch) => {
-    authAPI.login(email, password, rememberMe, captcha)
-      .then(data => {
-        const {fieldsErrors, resultCode, messages} = data
+  return async (dispatch) => {
+    const data = await authAPI.login(email, password, rememberMe, captcha)
+    const {fieldsErrors, resultCode, messages} = data
 
-        const setFieldsError = () => {
-          if (fieldsErrors.length > 0) {
-            for (let key in fieldsErrors) {
-              let message = fieldsErrors[key].error
-              setError(fieldsErrors[key].field, {type: 'server', message})
-            }
-          } else for (let key in messages) {
-            let message = messages[key]
-            setError('common', {type: 'server', message})
-          }
+    const setFieldsError = () => {
+      if (fieldsErrors.length > 0) {
+        for (let key in fieldsErrors) {
+          let message = fieldsErrors[key].error
+          setError(fieldsErrors[key].field, {type: 'server', message})
         }
+      } else for (let key in messages) {
+        let message = messages[key]
+        setError('common', {type: 'server', message})
+      }
+    }
 
-        switch (resultCode) {
-          case 0:
-            dispatch(getAuthUserData())
-            break
-          case 1:
-            setFieldsError()
-            break
-          case 10:
-            authAPI.getCaptcha()
-              .then(data => {
-                dispatch(setCaptcha(data))
-              })
-            setFieldsError()
-            break
-          default:
-            throw Error('Error Auth')
-        }
-      })
+    switch (resultCode) {
+      case 0:
+        dispatch(getAuthUserData())
+        break
+      case 1:
+        setFieldsError()
+        break
+      case 10:
+        authAPI.getCaptcha()
+          .then(data => {
+            dispatch(setCaptcha(data))
+          })
+        setFieldsError()
+        break
+      default:
+        throw Error('Error Auth')
+    }
   }
 }
 
-export const logout = () => {
-  return dispatch => {
-    authAPI.logout()
-      .then(data => {
-        if (data.resultCode === 0) {
-          dispatch(setAuthUserData(null, null, null, false))
-        }
-      })
+export const logout = () => async dispatch => {
+  const data = await authAPI.logout()
+  if (data.resultCode === 0) {
+    dispatch(setAuthUserData(null, null, null, false))
   }
 }
