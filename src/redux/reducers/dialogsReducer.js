@@ -1,6 +1,6 @@
 import {
   addMessage,
-  updateNewMessageText
+  updateNewMessageText,
 } from '../actions/dialogs'
 import * as constants from '../constants/dialogs'
 
@@ -88,15 +88,11 @@ export default function dialogsReducer(state = initialState, action) {
   }
 }
 
-export const getMessage = () => {
-  return dispatch => {
-    dispatch(addMessage())
-  }
+export const getMessage = () => dispatch => {
+  dispatch(addMessage())
 }
 
-export const getNewMessageText = (message) => {
-  return dispatch => {
-    dispatch(updateNewMessageText(message))
-  }
+export const getNewMessageText = (message) => dispatch => {
+  dispatch(updateNewMessageText(message))
 }
 
