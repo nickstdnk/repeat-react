@@ -53,43 +53,27 @@ export default function profileReducer(state = initialState, action) {
   }
 }
 
-export const getProfile = (userId) => {
-  return dispatch => {
-    profileAPI.getProfile(userId)
-      .then(data => {
-        dispatch(setUserProfile(data))
-      })
+export const getProfile = (userId) => async dispatch => {
+  const data = profileAPI.getProfile(userId)
+  dispatch(setUserProfile(data))
+}
+
+export const getStatus = (userId) => async dispatch => {
+  const data = await profileAPI.getStatus(userId)
+  dispatch(setStatus(data))
+}
+
+export const updateStatus = (status) => dispatch => {
+  const data = profileAPI.updateStatus(status)
+  if (data.resultCode === 0) {
+    dispatch(setStatus(status))
   }
 }
 
-export const getStatus = (userId) => {
-  return dispatch => {
-    profileAPI.getStatus(userId)
-      .then(data => {
-        dispatch(setStatus(data))
-      })
-  }
+export const updateNewPostText = (text) => dispatch => {
+  dispatch(updateNewPostTextActionCreator(text))
 }
 
-export const updateStatus = (status) => {
-  return dispatch => {
-    profileAPI.updateStatus(status)
-      .then(data => {
-        if (data.resultCode === 0) {
-          dispatch(setStatus(status))
-        }
-      })
-  }
-}
-
-export const updateNewPostText = (text) => {
-  return dispatch => {
-    dispatch(updateNewPostTextActionCreator(text))
-  }
-}
-
-export const addPost = () => {
-  return dispatch => {
-    dispatch(addPostActionCreator())
-  }
+export const addPost = () => dispatch => {
+  dispatch(addPostActionCreator())
 }
