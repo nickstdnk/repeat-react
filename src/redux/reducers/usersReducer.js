@@ -68,31 +68,26 @@ export default function usersReducer(state = initialState, action) {
   }
 }
 
-export const getUsers = (page, pageSize) => {
-  return (dispatch) => {
-    dispatch(setCurrentPage(page))
-    dispatch(toggleIsFetching(true))
+export const getUsers = (page, pageSize) => async (dispatch) => {
+  dispatch(setCurrentPage(page))
+  dispatch(toggleIsFetching(true))
 
-    usersAPI.getUsers(page, pageSize)
-      .then(data => {
-        dispatch(toggleIsFetching(false))
-        dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount))
-      })
-  }
+  const data = await usersAPI.getUsers(page, pageSize)
+  dispatch(toggleIsFetching(false))
+  dispatch(setUsers(data.items))
+  dispatch(setTotalUsersCount(data.totalCount))
 }
 
-export const toggleFollowing = (userId, actionFollow) => {
-  let action = actionFollow ? usersAPI.follow(userId) : usersAPI.unfollow(userId)
-  return dispatch => {
-    dispatch(toggleFollowingProgress(true, userId))
-    action.then(data => {
-      if (data.resultCode === 0) {
-        dispatch(toggleFollow(userId))
-        dispatch(toggleFollowingProgress(false, userId))
-      } else {
-        throw Error('Ошибка подписки, что то пошло не так...')
-      }
-    })
+export const toggleFollowing = (userId, actionFollow) => async dispatch => {
+  let action = actionFollow ? await usersAPI.follow(userId) : await usersAPI.unfollow(userId)
+
+  dispatch(toggleFollowingProgress(true, userId))
+
+  const data = await action
+  if (data.resultCode === 0) {
+    dispatch(toggleFollow(userId))
+    dispatch(toggleFollowingProgress(false, userId))
+  } else {
+    throw Error('Ошибка подписки, что то пошло не так...')
   }
 }
