@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
-import appReducer from './appReducer'
+import appReducer from './app'
 
-import dialogsReducer from './dialogsReducer'
-import friendsReducer from './friendsReducer'
-import profileReducer from './profileReducer'
-import sidebarReducer from './sidebarReducer'
-import usersReducer from './usersReducer'
-import authReducer from './authReducer'
+import dialogsReducer from './dialogs'
+import friendsReducer from './friends'
+import profileReducer from './profile'
+import sidebarReducer from './sidebar'
+import usersReducer from './users'
+import authReducer from './auth'
 
 export default combineReducers(
   {

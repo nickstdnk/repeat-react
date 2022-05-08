@@ -5,7 +5,7 @@ import WithAuthRedirect from '../hoc/WithAuthRedirect'
 import {
   getMessage,
   getNewMessageText
-} from '../../redux/reducers/dialogsReducer'
+} from '../../redux/reducers/dialogs'
 
 let mapStateToProps = (state) => {
   return {

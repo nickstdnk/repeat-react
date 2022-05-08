@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { login } from '../../redux/reducers/authReducer'
+import { login } from '../../redux/reducers/auth'
 import { LoginFormSchema } from '../../utils/schemas/validations'
 
 const AuthForm = (props) => {

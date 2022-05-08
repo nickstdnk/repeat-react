@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../../redux/reducers/authReducer'
+import { logout } from '../../redux/reducers/auth'
 import Header from './Header'
 
 const HeaderContainer = (props) => {

@@ -7,7 +7,7 @@ import Preloader from '../common/Preloader/Preloader'
 import {
   toggleFollowingProgress,
 } from '../../redux/actions/users'
-import { getUsers, toggleFollowing } from '../../redux/reducers/usersReducer'
+import { getUsers, toggleFollowing } from '../../redux/reducers/users'
 
 import * as selectors from '../../redux/selectors/users'
 

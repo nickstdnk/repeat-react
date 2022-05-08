@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 import Profile from './Profile'
 
-import { getProfile, getStatus, updateStatus } from '../../redux/reducers/profileReducer'
+import { getProfile, getStatus, updateStatus } from '../../redux/reducers/profile'
 
 const ProfileContainer = (props) => {
   let {userId} = useParams()

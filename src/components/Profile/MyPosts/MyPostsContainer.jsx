@@ -3,7 +3,7 @@ import MyPosts from './MyPosts'
 import {
   addPost,
   updateNewPostText
-} from '../../../redux/reducers/profileReducer'
+} from '../../../redux/reducers/profile'
 
 let MyStateToProps = (state) => {
   return {

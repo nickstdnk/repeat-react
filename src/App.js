@@ -13,7 +13,7 @@ import { Routes, Route } from 'react-router-dom'
 import DialogsContainer from './components/Dialogs/DialogsContainer'
 import UsersContainer from './components/Users/UsersContainer'
 import ProfileContainer from './components/Profile/ProfileContainer'
-import { initializeApp } from './redux/reducers/appReducer'
+import { initializeApp } from './redux/reducers/app'
 
 function App(props) {
   useEffect(() => {

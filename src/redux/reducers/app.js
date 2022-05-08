@@ -1,6 +1,6 @@
 import * as constants from '../constants/app'
 import { initializeSuccess } from '../actions/app'
-import { getAuthUserData } from './authReducer'
+import { getAuthUserData } from './auth'
 
 const initialState = {
   initialize: false,
