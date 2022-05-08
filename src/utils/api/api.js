@@ -7,74 +7,54 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-  getUsers(currentPage, pageSize) {
-    return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-      .then(response => {
-        return response.data
-      })
+  async getUsers(currentPage, pageSize) {
+    const {data} = await instance.get(`users?page=${currentPage}&count=${pageSize}`)
+    return data
   },
-  follow(userId) {
-    return instance.post(`follow/${userId}`)
-      .then(response => {
-        return response.data
-      })
+  async follow(userId) {
+    const {data} = await instance.post(`follow/${userId}`)
+    return data
   },
-  unfollow(userId) {
-    return instance.delete(`follow/${userId}`)
-      .then(response => {
-        return response.data
-      })
+  async unfollow(userId) {
+    const {data} = await instance.delete(`follow/${userId}`)
+    return data
   },
 }
 
 export const authAPI = {
-  getAuthUserData() {
-    return instance.get(`auth/me`)
-      .then(response => {
-        return response.data
-      })
+  async getAuthUserData() {
+    const {data} = await instance.get(`auth/me`)
+    return data
   },
 
-  login(email, password, rememberMe, captcha) {
-    return instance.post(`auth/login`, {email, password, rememberMe, captcha})
-      .then(response => {
-        return response.data
-      })
+  async login(email, password, rememberMe, captcha) {
+    const {data} = await instance.post(`auth/login`, {email, password, rememberMe, captcha})
+    return data
   },
 
-  getCaptcha() {
-    return instance.get(`security/get-captcha-url`)
-      .then(response => {
-        return response.data
-      })
+  async getCaptcha() {
+    const {data} = await instance.get(`security/get-captcha-url`)
+    return data
   },
 
-  logout() {
-    return instance.delete(`auth/login`)
-      .then(response => {
-        return response.data
-      })
+  async logout() {
+    const {data} = await instance.delete(`auth/login`)
+    return data
   },
 }
 
 export const profileAPI = {
-  getProfile(userId) {
-    return instance.get(`profile/${userId}`)
-      .then(response => {
-        return response.data
-      })
+  async getProfile(userId) {
+    const {data} = await instance.get(`profile/${userId}`)
+    return data
   },
-  getStatus(userId) {
-    return instance.get(`profile/status/${userId}`)
-      .then(response => {
-        return response.data
-      })
+  async getStatus(userId) {
+    const {data} = await instance.get(`profile/status/${userId}`)
+    return data
   },
 
-  updateStatus(status) {
-    return instance.put(`profile/status`, {status})
-      .then(response => {
-        return response.data
-      })
+  async updateStatus(status) {
+    const {data} = await instance.put(`profile/status`, {status})
+    return data
   },
 }
