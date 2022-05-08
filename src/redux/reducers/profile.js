@@ -54,7 +54,7 @@ export default function profileReducer(state = initialState, action) {
 }
 
 export const getProfile = (userId) => async dispatch => {
-  const data = profileAPI.getProfile(userId)
+  const data = await profileAPI.getProfile(userId)
   dispatch(setUserProfile(data))
 }
 
@@ -63,8 +63,8 @@ export const getStatus = (userId) => async dispatch => {
   dispatch(setStatus(data))
 }
 
-export const updateStatus = (status) => dispatch => {
-  const data = profileAPI.updateStatus(status)
+export const updateStatus = (status) => async dispatch => {
+  const data = await profileAPI.updateStatus(status)
   if (data.resultCode === 0) {
     dispatch(setStatus(status))
   }
