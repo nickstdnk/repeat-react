@@ -64,10 +64,8 @@ export const login = (data, setError) => {
         setFieldsError()
         break
       case 10:
-        authAPI.getCaptcha()
-          .then(data => {
+        const data = await authAPI.getCaptcha()
             dispatch(setCaptcha(data))
-          })
         setFieldsError()
         break
       default:
