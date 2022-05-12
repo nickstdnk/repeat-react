@@ -10421,6 +10421,7 @@ __metadata:
     "@testing-library/user-event": ^14.1.1
     axios: ^0.27.2
     env-cmd: ^10.1.0
+    eslint-config-react-app: ^7.0.1
     react: ^18.1.0
     react-dom: ^18.1.0
     react-hook-form: ^7.30.0
